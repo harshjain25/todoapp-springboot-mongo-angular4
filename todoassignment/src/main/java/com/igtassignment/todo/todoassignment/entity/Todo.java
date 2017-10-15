@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Data
 @Document(collection="todos")
-@JsonIgnoreProperties(value = {"createdAt"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"createdOn"}, allowGetters = true)
 public class Todo {
 
     @Id
@@ -19,7 +19,9 @@ public class Todo {
     @Indexed(unique=true)
     private String title;
 
-    private Boolean completed = false;
+    private Boolean completed;
 
-    private Date createdAt = new Date();
+    private Date createdOn;
+
+    private Date modifiedOn;
 }

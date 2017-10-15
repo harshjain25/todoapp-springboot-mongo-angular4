@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -27,26 +29,24 @@ public class TodoAppController {
 
     @GetMapping("/todos")
     public List<Todo> getAllTodos() {
-        Sort sortByCreatedAtDesc = new Sort(Sort.Direction.DESC, "createdAt");
+        Sort sortByCreatedAtDesc = new Sort(Sort.Direction.DESC, "createdOn");
         return todoRepository.findAll(sortByCreatedAtDesc);
     }
 
     @PostMapping("/todos")
     public Todo createTodo(@Valid @RequestBody Todo todo) {
         todo.setCompleted(false);
+        todo.setCreatedOn(new Date());
         return todoRepository.save(todo);
     }
 
     @GetMapping(value="/todos/{id}")
     public ResponseEntity<Todo> getTodoById(@PathVariable("id") String id) {
 
-        Todo todo = todoRepository.findOne(id);
+        Optional<Todo> todo = Optional.ofNullable(todoRepository.findOne(id));
 
-        if(todo == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(todo, HttpStatus.OK);
-        }
+        return todo.isPresent() ? new ResponseEntity<>(todo.get(), HttpStatus.OK) :
+                                    new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping(value="/todos/{id}")
@@ -61,6 +61,7 @@ public class TodoAppController {
 
         todoData.setTitle(todo.getTitle());
         todoData.setCompleted(todo.getCompleted());
+        todoData.setModifiedOn(new Date());
         Todo updatedTodo = todoRepository.save(todoData);
 
         return new ResponseEntity<>(updatedTodo, HttpStatus.OK);
