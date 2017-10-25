@@ -2,7 +2,7 @@
     <h1 class="page-title">Todo App</h1>
     <div class="todo-create">
       <form #todoForm="ngForm" (ngSubmit) = "createTodo(todoForm)" novalidate>
-    		<input type="text" id="title" class="form-control" placeholder="Type a todo and press enter..."
+    		<input type="text" id="title" class="form-control" placeholder="Type a task and press enter..."
     		       required
     		       name="title" [(ngModel)]="newTodo.title"
     		       #title="ngModel" >
