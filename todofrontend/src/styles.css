@@ -3,6 +3,7 @@
 body {
 	font-size: 18px;
 	line-height: 1.58;
+  /*background: #cbad6d;*/
 }
 
 h1 {
@@ -40,7 +41,7 @@ input {
   font-size: 16px;
   padding-left: 15px;
   outline: none;
-  border: 1px solid #E8E8E8;
+  border: 1px solid #cbad6d;
 }
 
 .form-control:focus {
@@ -54,7 +55,7 @@ input {
 
 .todo-content .todo-create {
   padding-bottom: 30px;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid #cbad6d;
 }
 
 .todo-content .alert-danger {

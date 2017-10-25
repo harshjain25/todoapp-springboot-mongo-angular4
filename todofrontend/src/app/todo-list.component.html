@@ -1,8 +1,8 @@
 <div class="todo-content">
-    <h1 class="page-title">My Todos</h1>
+    <h1 class="page-title">Todo App</h1>
     <div class="todo-create">
       <form #todoForm="ngForm" (ngSubmit) = "createTodo(todoForm)" novalidate>
-    		<input type="text" id="title" class="form-control" placeholder="Type a todo and press enter..." 
+    		<input type="text" id="title" class="form-control" placeholder="Type a todo and press enter..."
     		       required
     		       name="title" [(ngModel)]="newTodo.title"
     		       #title="ngModel" >
@@ -19,8 +19,8 @@
       <li *ngFor="let todo of todos" [class.completed]= "todo.completed === true" >
         <div class="todo-row" *ngIf="!editing || editingTodo.id != todo.id">
             <a class="todo-completed" (click)="toggleCompleted(todo)">
-            	<i class="material-icons toggle-completed-checkbox"></i> 
-            </a> 
+            	<i class="material-icons toggle-completed-checkbox"></i>
+            </a>
             <span class="todo-title">
             	{{todo.title}}
             </span>
@@ -34,7 +34,7 @@
             </span>
         </div>
         <div class="todo-edit" *ngIf="editing && editingTodo.id === todo.id">
-            <input class="form-control" type="text" 
+            <input class="form-control" type="text"
              [(ngModel)]="editingTodo.title" required>
             <span class="edit-actions">
                 <a (click)="updateTodo(editingTodo)">
