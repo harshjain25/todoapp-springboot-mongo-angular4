@@ -53,12 +53,13 @@ public class TodoAppController {
     public ResponseEntity<Todo> updateTodo(@PathVariable("id") String id,
                                            @Valid @RequestBody Todo todo) {
 
-        Todo todoData = todoRepository.findOne(id);
+        Optional<Todo> todoOptional = Optional.ofNullable(todoRepository.findOne(id));
 
-        if(todoData == null) {
+        if(!todoOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+        Todo todoData = todoOptional.get();
         todoData.setTitle(todo.getTitle());
         todoData.setCompleted(todo.getCompleted());
         todoData.setModifiedOn(new Date());
@@ -69,6 +70,7 @@ public class TodoAppController {
 
     @DeleteMapping(value="/todos/{id}")
     public void deleteTodo(@PathVariable("id") String id) {
+
         todoRepository.delete(id);
     }
 }
